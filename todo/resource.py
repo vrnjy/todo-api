@@ -1,16 +1,12 @@
 from flask import request
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from todo.model import TodoModel
 from sqlalchemy.exc import SQLAlchemyError
 
 
 class Todo(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('id',
-                        type=str,
-                        required=True,
-                        help="Need a todo id.",
-                        )
+    
+    # Retrieve, update or delete a todo. 
     
     def get(self, id):
         todo = TodoModel.find_by_id(id)
@@ -34,13 +30,15 @@ class Todo(Resource):
     def put(self, id):
         content = request.form['content']
 
+        if content == '':
+            return {'messange': 'Cannot have nothing todo.'}, 400
         todo = TodoModel.find_by_id(id)
 
         if not todo:
             return {'message': 'Could not update.'}, 404
-
-        todo.content = content
         
+        todo.content = content
+
         try:
             todo.save_to_db()
         except SQLAlchemyError:
@@ -56,7 +54,20 @@ class Todo(Resource):
         
         todo.check = not todo.check
 
+        try:
+            todo.save_to_db()
+        except SQLAlchemyError:
+            return {"message": "An error occurred while toggeling the todo. :("}, 500
+        
+        return todo.json(), 200
+
+
+
+
 class TodoList(Resource):
+    
+    # List all todos and create new ones.
+    
     def get(self):
         todos = [todo.json() for todo in TodoModel.find_all()]
 
@@ -64,8 +75,7 @@ class TodoList(Resource):
     
     def post(self):
         content = request.form['content']
-        check = request.form['check']
-        todo = TodoModel(content=content, check=check)
+        todo = TodoModel(content=content)
 
         try:
             todo.save_to_db()

@@ -1,11 +1,23 @@
 from db import db
 
 class TodoModel(db.Model): # type: ignore
+    
+    # Query/Update/Delete the todos in database 
+
     __tablename__ = 'todos'
 
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(80), unique=False, nullable=False)
-    check = db.Column(db.Integer, nullable=False)
+    id = db.Column(db.Integer,
+                   primary_key=True
+                   )
+    
+    content = db.Column(db.String(80), 
+                        unique=False, 
+                        nullable=False
+                        )
+
+    check = db.Column(db.Integer,
+                      nullable=False,
+                      default=0)
 
     @classmethod
     def find_by_id(cls, id):

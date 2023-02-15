@@ -6,7 +6,7 @@ from todo.resource import TodoList, Todo
 from dotenv import load_dotenv
 import os
 
-
+# initialize Flask app
 app = Flask(__name__)
 
 # register error handlers.
@@ -32,15 +32,14 @@ db.init_app(app)
 api = Api(app)
 api.prefix = '/api'
 
-
+# create tables in db based on models
 @app.before_first_request
 def create_tables():
     db.drop_all()
     db.create_all()
 
 
-# TODO
-# register todo resource
+# register todo resources to routes
 api.add_resource(TodoList, "/todo")
 api.add_resource(Todo, "/todo/<int:id>")
 

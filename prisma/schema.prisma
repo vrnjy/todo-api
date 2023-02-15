@@ -1,0 +1,18 @@
+// database
+datasource db {
+    provider = "sqlite"
+    url      = "file:database.db"
+}
+
+// generator
+generator client {
+    provider             = "prisma-client-py"
+    interface            = "sync"
+    recursive_type_depth = 5
+}
+
+// data models
+model Post {
+    id      Int    @id @default(autoincrement())
+    content String
+}

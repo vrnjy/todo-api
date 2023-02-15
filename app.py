@@ -33,10 +33,10 @@ api = Api(app)
 api.prefix = '/api'
 
 
-# @app.before_first_request
-# def create_tables():
-#     db.drop_all()
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.drop_all()
+    db.create_all()
 
 
 # TODO

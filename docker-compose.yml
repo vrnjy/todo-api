@@ -1,7 +1,7 @@
-version: "3.11"
 services:
   app:
     build: .
+    container_name: todo-api
     command: python app.py
     ports:
       - "5000:5000"

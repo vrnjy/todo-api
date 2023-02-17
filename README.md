@@ -6,19 +6,43 @@ A todo API service.
 
 The python version used is 3.11.2.
 
-Using `docker`:
+### Using `docker`:
 
 1. Clone the repo
-2. `docker compose up`
 
-Using `pipenv`:
+2. cd todo-api
+3. touch .env
+4. Add the following to .env
+
+   ```.env
+   SQLALCHEMY_DATABASE_URI=sqlite:///todo.db
+   SQLALCHEMY_TRACK_MODIFICATIONS=False
+   PROPAGATE_EXCEPTIONS=True
+   ```
+
+5. `docker compose up`
+
+### Using `pipenv`:
 
 1. Clone the repo
-2. pipenv install to install all the dependencies
-3. pipenv run python app.py
+
+2. cd todo-api
+3. touch .env
+4. Add the following to .env
+
+   ```.env
+   SQLALCHEMY_DATABASE_URI=sqlite:///todo.db
+   SQLALCHEMY_TRACK_MODIFICATIONS=False
+   PROPAGATE_EXCEPTIONS=True
+   ```
+
+5. pipenv install to install all the dependencies
+6. pipenv run python app.py
 
 If using venv or similar, then create your virtual environment and clone the repo in it.
 Then you can install the dependincies using `pip install -r requirements.txt` and then run the app using `python app.py`.
+
+## Examples
 
 ### Create new todos
 

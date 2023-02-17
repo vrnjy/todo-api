@@ -1,5 +1,11 @@
 FROM python:3.11.2-alpine3.17
 
-ADD . /todo-api
 WORKDIR /todo-api
-RUN pip install -r requirements.txt
+
+COPY ./requirements.txt /todo-api/
+
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+
+COPY . /todo-api/
+
+CMD ["python", "app.py"]

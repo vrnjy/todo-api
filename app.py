@@ -47,7 +47,7 @@ def create_tables():
 
 @app.route("/")
 def hello():
-    return "<a href=\"https: // github.com/vrnjy/todo-api\"> Todo Api Service! <a>🔗</a> </a> "
+    return "<a href=\"https://github.com/vrnjy/todo-api\"> Todo Api Service! <a>🔗</a> </a> "
 
 
 # register todo resources to routes
